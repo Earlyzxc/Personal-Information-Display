@@ -9,6 +9,7 @@
             padding: 30px;
             margin: 0;
         }
+
         .container {
             background: #ffffff;
             width: 400px;
@@ -58,7 +59,7 @@
 <div class="container">
     <h2>Personal Information Form</h2>
 
-    <form action="personal_info.php" method="POST">
+    <form action="personal_Info.php" method="POST" enctype="multipart/form-data">
         <label>Full Name:</label>
         <input type="text" name="fullname" required>
 
@@ -70,6 +71,12 @@
 
         <label>Email:</label>
         <input type="email" name="email" required>
+
+        <label>Contact Number:</label>
+        <input type="text" name="contact" required>
+
+        <label>Profile Picture (optional):</label>
+        <input type="file" name="profile_pic" accept="image/*">
 
         <button type="submit">Submit</button>
     </form>
