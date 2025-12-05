@@ -35,6 +35,16 @@
             color: #000;
         }
 
+        .profile {
+            display: block;
+            margin: 0 auto 20px auto;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #4CAF50;
+        }
+
         a {
             display: block;
             text-align: center;
@@ -61,16 +71,38 @@
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
+
     $fullname = $_POST['fullname'];
     $age = $_POST['age'];
     $address = $_POST['address'];
     $email = $_POST['email'];
+    $contact = $_POST['contact'];
+
+    
+    $defaultPic = "default.jpg"; 
+    $uploadedPic = $defaultPic;
+
+    if (!empty($_FILES['profile_pic']['name'])) {
+        $targetDir = "uploads/";
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0777, true);
+        }
+
+        $targetFile = $targetDir . basename($_FILES["profile_pic"]["name"]);
+
+        if (move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $targetFile)) {
+            $uploadedPic = $targetFile;
+        }
+    }
+
+    echo "<img src='$uploadedPic' class='profile'>";
 
     echo "<p><strong>Full Name:</strong> $fullname</p>";
     echo "<p><strong>Age:</strong> $age</p>";
     echo "<p><strong>Address:</strong> $address</p>";
     echo "<p><strong>Email:</strong> $email</p>";
+    echo "<p><strong>Contact Number:</strong> $contact</p>";
+
 } else {
     echo "<p>No data submitted.</p>";
 }
